@@ -14,9 +14,9 @@ Modelo final = **sub08**: validación cruzada 0.9480 ± 0.0009, leaderboard púb
 | `codigo/features.py`, `meta.py`, `electra.py` | Funciones que usan los dos scripts: features, meta-features y el modelo de texto. |
 | `codigo/requirements.txt` | Versiones exactas de las librerías. |
 | `pesos/electra/` | Pesos preentrenados de ELECTRA small en español (mrm8488/electricidad-small-discriminator). |
-| `modelo/` | El modelo final ya entrenado (lo que escribe `entrenar.py`). |
+| `modelo/` | El modelo final ya entrenado (lo que escribe `entrenar.py`, unos 500 MB): con esto `predecir.py` corre sin reentrenar. |
 | `submission/sub08_ensamble_v8_tabpfn.csv` | El archivo subido a Kaggle. |
-| `notas/` | Bitácora de los 45 experimentos (`experimentos.md`) y la guía para explicar el trabajo. |
+| `notas/` | Bitácora de los 45 experimentos (`experimentos.md`). |
 
 ## El modelo final en una línea
 
@@ -42,4 +42,6 @@ Los pesos de TabPFN 3.5 (`tabpfn-v3.5-20260909.safetensors`, de Prior Labs) no s
 - Todas las semillas están fijas (particiones, LightGBM, CatBoost, ELECTRA, TabPFN).
 - ELECTRA se entrena en CPU para que sea determinístico; el script guarda cada fold y puede retomarse si se corta, con el mismo resultado.
 - Las features que no usan la etiqueta (agregados por vendedor, categoría, etc.) se calculan con train + test, igual al entrenar y al predecir.
-- Verificación: las features, las meta-features y el primer modelo ELECTRA reentrenados con estos scripts dan exactamente los mismos valores que la corrida original (diferencia 0.0).
+- Verificación: se reentrenó todo desde cero con `entrenar.py` y se comparó con la corrida original:
+  ELECTRA (out-of-fold y test), las predicciones de test de los árboles y las matrices de entrada de TabPFN coinciden
+  (diferencias menores a 0.00002, redondeo de punto flotante), y la submission resultante es **idéntica a sub08 en las 30.000 filas**.
