@@ -1,0 +1,13 @@
+# versiones con las que se entrenó el modelo final (Python 3.13, CPU de 4 núcleos)
+numpy==2.5.3
+pandas==3.0.5
+scipy==1.18.1
+scikit-learn==1.9.1
+lightgbm==4.7.0
+catboost==1.2.10
+torch==2.15.0
+transformers==5.23.0
+tokenizers==0.23.3
+joblib
+# solo para predecir.py (con GPU)
+tabpfn==9.2.0
